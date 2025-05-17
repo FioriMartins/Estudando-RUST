@@ -1,14 +1,22 @@
+const PI:f32 = 3.14;
+static mut GLOBAL:u8 = 1;
+
 fn main() {
+    println!("PI = {}", PI);
+
+    // sem o unsafe, o RUST iria avisar que variável global é 'insegura'
+    // com unsafe, de uma forma simplificada estamos dizendo que sabemos que é inseguro.
+    unsafe {
+        println!("Variável Global = {}", GLOBAL);
+    }
+
     let nomevariavel:i32 = 128;
-    println!("Variavel = {}, tamanho = {} bytes", nomevariavel, std::mem::size_of_val(&nomevariavel));
+    println!("Variável = {}, tamanho = {} bytes", nomevariavel, std::mem::size_of_val(&nomevariavel));
 
     let decimal:f32 = 2.5;
-    println!("decimal = {}", decimal);
+    println!("Decimal = {}", decimal);
 
-    // variaveis no RUST são imutáveis
-    // mas você pode torná-la mutável com 'mut' antes da declaração do nome
-    let mut booleana = true;
-    booleana = false;
+    let booleana = true;
     println!("Valor= {}, Tamanho booleana = {}", booleana, std::mem::size_of_val(&booleana));
 
     let letra:char = 'C';
