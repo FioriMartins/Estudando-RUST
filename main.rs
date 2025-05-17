@@ -1,14 +1,37 @@
-const PI:f32 = 3.14; // As constantes não possuem um endereço de memória
-                     // isso significa: que const são inlined em tempo de compilação, ou seja, o
-                     // compilador substitui a referência para a constante pelo  seu valor
-                     // diretamente
+const PI:f32 = 3.14;
 static mut GLOBAL:u8 = 1;
 
-fn main() {
+fn sombra() {
+    let a = 123;
+
+    {
+        let b = 456;
+        let a = 457; // aqui não estou redeclarando a variável, estou declarando uma varíavel
+                     // totalmente nova, pois a var 'a' não está no mesmo escopo, por mais que o
+                     // escopo de dentro herde tudo que o escopo de fora tem.
+                     //
+                     // o nome dessa característica é "shadowing", pode ser perigoso e vantajoso.
+
+        println!("Dentro, b = {}", b);
+    }
+    // println!("Fora, b = {}", b)
+
+    println!("Valor de A = {}", a);
+}
+
+fn escopo() {
     println!("PI = {}", PI);
 
-    // sem o unsafe, o RUST iria avisar que variável global é 'insegura'
-    // com unsafe, de uma forma simplificada estamos dizendo que sabemos que é inseguro.
+    let essa_string = "meu nome"; // Strings geralmente são um vetor ou alguma outra estrutura de
+                                  // dados, uma lista, de carecteres. Então é um conjunto de
+                                  // caracteres. Isso é uma String. Só que em RUST não posso pegar
+                                  // uma string qualquer, por exemplo essa, não posso pegar dessa
+                                  // string a primeira posição. Não é realmente um vetor.
+                                  // Isso é um tipo mais complexo. Quando crio uma string ela é na
+                                  // verdade uma referência para um "static str". E "str" é um
+                                  // pedaço de uam string. Ou seja, um pedaço de um vetor de
+                                  // caracteres.
+    
     unsafe {
         println!("Variável Global = {}", GLOBAL);
     }
@@ -24,4 +47,9 @@ fn main() {
 
     let letra:char = 'C';
     println!("Tamanho do char = {}", std::mem::size_of_val(&letra));
+}
+
+fn main() {
+    escopo();
+    sombra();
 }
