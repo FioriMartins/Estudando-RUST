@@ -1,4 +1,7 @@
-const PI:f32 = 3.14;
+const PI:f32 = 3.14; // As constantes não possuem um endereço de memória
+                     // isso significa: que const são inlined em tempo de compilação, ou seja, o
+                     // compilador substitui a referência para a constante pelo  seu valor
+                     // diretamente
 static mut GLOBAL:u8 = 1;
 
 fn main() {
